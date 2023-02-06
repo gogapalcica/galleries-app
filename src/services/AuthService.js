@@ -10,6 +10,7 @@ class AuthService extends ApiService {
 
   setAndRedirect = (response) => {
     window.localStorage.setItem("token", response.data.access_token);
+    window.localStorage.setItem("userId", response.data.user.id);
     window.location.replace("/");
   };
 

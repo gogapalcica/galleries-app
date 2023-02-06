@@ -17,6 +17,7 @@ export const Navbar = () => {
           <Link to="/">All Galleries</Link>{" "}
           <Link to="my-galleries">My Galleries</Link>{" "}
           <Link to="/create">Create New Gallery</Link>{" "}
+          <Link to="/edit-gallery/:id"></Link>
           <a className="toggleable" onClick={authService.logout} role="button">
             Logout
           </a>

@@ -7,6 +7,10 @@ export const Login = () => {
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    if (!user.email || !user.password) {
+      alert("Bad credentialas!!!!!");
+      return;
+    }
     await authService.login(user);
   };
 

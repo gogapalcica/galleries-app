@@ -1,30 +1,34 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { userService } from "../services/UserService";
 import { GalleriesDetails } from "../components/GalleriesDetails";
+import { userService } from "../services/UserService";
 
-export const Authors = () => {
-  const { id } = useParams();
-  const [author, setAuthor] = useState([{id:0, url:[""]}]);
+export const MyGalleries = () => {
+  const userId = window.localStorage.getItem("userId");
+  const [galleries, setGalleries] = useState({});
 
-  const getAuthorHandler = async (id) => {
+  const getGalleriesHandler = async (id) => {
     const { data } = await userService.get(id);
-    setAuthor(data.data);
+    setGalleries(data.data);
   };
 
   useEffect(() => {
-    getAuthorHandler(id);
-  }, []);
+    if (userId) {
+      getGalleriesHandler(userId);
+    }
+  }, [userId]);
 
   return (
     <div>
+      <h1>My Galleries</h1>
       <ul>
-        {id && 
-          author.map((gallery) => (
+        {galleries[0] &&
+          galleries.map((gallery) => (
             <li key={gallery.id}>
               <GalleriesDetails
                 id={gallery.id}
                 title={gallery.title}
+                user={gallery.user}
                 url={gallery.url}
                 createdAt={gallery.created_at}
               />
